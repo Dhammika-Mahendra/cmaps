@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import { useAppContext } from '../context/AppContext'
 
 const Drawer = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const { showAdminBoundaries, setShowAdminBoundaries } = useAppContext()
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen)
@@ -36,7 +38,12 @@ const Drawer = () => {
             >
                 <span className="text-md flex items-center justify-between w-full">
                 Admin Boundaries
-                <input type="checkbox" className="ml-2" />
+                <input 
+                  type="checkbox" 
+                  className="ml-2" 
+                  checked={showAdminBoundaries}
+                  onChange={(e) => setShowAdminBoundaries(e.target.checked)}
+                />
                 </span>
                 <span className="text-base font-medium"></span>
             </a>
