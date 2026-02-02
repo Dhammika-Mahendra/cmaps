@@ -1,9 +1,17 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const value = {};
+  const [showAdminBoundaries, setShowAdminBoundaries] = useState(false);
+  const [showLabels, setShowLabels] = useState(false);
+
+  const value = {
+    showAdminBoundaries,
+    setShowAdminBoundaries,
+    showLabels,
+    setShowLabels,
+  };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
