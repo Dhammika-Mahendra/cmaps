@@ -1,38 +1,9 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext } from 'react';
 
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState(null);
-  const [mapCenter, setMapCenter] = useState([7.8731, 80.7718]); // Default to Sri Lanka center
-  const [mapZoom, setMapZoom] = useState(8);
-
-  const toggleDrawer = () => {
-    setIsDrawerOpen(!isDrawerOpen);
-  };
-
-  const openDrawer = () => {
-    setIsDrawerOpen(true);
-  };
-
-  const closeDrawer = () => {
-    setIsDrawerOpen(false);
-  };
-
-  const value = {
-    isDrawerOpen,
-    setIsDrawerOpen,
-    toggleDrawer,
-    openDrawer,
-    closeDrawer,
-    selectedLocation,
-    setSelectedLocation,
-    mapCenter,
-    setMapCenter,
-    mapZoom,
-    setMapZoom,
-  };
+  const value = {};
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
