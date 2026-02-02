@@ -4,13 +4,10 @@ const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [showAdminBoundaries, setShowAdminBoundaries] = useState(false);
-  const [showLabels, setShowLabels] = useState(false);
 
   const value = {
     showAdminBoundaries,
     setShowAdminBoundaries,
-    showLabels,
-    setShowLabels,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

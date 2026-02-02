@@ -3,7 +3,7 @@ import { useAppContext } from '../context/AppContext'
 
 const Drawer = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const { showAdminBoundaries, setShowAdminBoundaries, showLabels, setShowLabels } = useAppContext()
+  const { showAdminBoundaries, setShowAdminBoundaries } = useAppContext()
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen)
@@ -31,37 +31,33 @@ const Drawer = () => {
     {/*=====================================================================*/}
 
     <nav className="p-2">
-        <div className="space-y-1 border-b border-gray-200 pb-4">
-            <span className="text-lg flex flex-col w-full">
-                <div className="flex items-center justify-between w-full text-gray-600">
-                    Admin Boundaries
-                    <input 
-                        type="checkbox" 
-                        checked={showAdminBoundaries}
-                        onChange={(e) => setShowAdminBoundaries(e.target.checked)}
-                    />
+        <div className="space-y-1 border-b border-gray-200">
+            <div className="text-md text-gray-600 flex items-center justify-between w-full py-2 pl-2 pr-6">
+            Admin Boundaries
+            <input 
+              type="checkbox"
+              checked={showAdminBoundaries}
+              onChange={(e) => setShowAdminBoundaries(e.target.checked)}
+            />
+            </div>
+            
+            {/* List of examples with smooth animations */}
+            <div 
+              className={`overflow-hidden transition-all duration-200 ease-in-out ${
+                showAdminBoundaries ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+              }`}
+            >
+              <div className="mt-2 pl-2 space-y-1 w-[60%] pb-2">
+                <div className="text-sm text-gray-600 flex justify-between items-center">
+                  <label className="font-sm">Labels</label>
+                  <input type="checkbox"/>
                 </div>
-                
-                {/* Secondary Options - Appears with smooth transition */}
-                <div 
-                    className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                        showAdminBoundaries ? 'max-h-40 opacity-100 mt-3' : 'max-h-0 opacity-0'
-                    }`}
-                >
-                   <div className='w-[50%] h-6 flex items-center justify-between'>
-                    <label className='text-sm'>Labels</label>
-                    <input 
-                      type='checkbox' 
-                      checked={showLabels}
-                      onChange={(e) => setShowLabels(e.target.checked)}
-                    />
-                   </div>
-                   <div className='w-[50%] h-6 flex items-center justify-between'>
-                    <label className='text-sm'>Colors</label>
-                    <input type='checkbox'/>
-                   </div>
+                <div className="text-sm text-gray-600 flex justify-between items-center">
+                  <label className="font-sm">Colors</label>
+                  <input type="checkbox"/>
                 </div>
-            </span>
+              </div>
+            </div>
         </div>
     </nav>
 
