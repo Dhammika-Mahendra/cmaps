@@ -10,7 +10,7 @@ const generateRandomColor = () => {
 }
 
 export default function Map() {
-  const { showAdminBoundaries, showColomboCity, showColors } = useAppContext()
+  const { showAdminBoundaries, showColomboCity, showAdminColors } = useAppContext()
   const [geoJsonData, setGeoJsonData] = useState(null)
   const [colomboCityData, setColomboCityData] = useState(null)
 
@@ -50,7 +50,7 @@ export default function Map() {
 
   // Style function for admin boundaries
   const getAdminStyle = (feature) => {
-    if (showColors && feature.properties.ADM2_EN) {
+    if (showAdminColors && feature.properties.ADM2_EN) {
       return {
         color: colorMap[feature.properties.ADM2_EN] || '#0400fdff',
         weight: 1,
@@ -80,7 +80,7 @@ export default function Map() {
         />
         {showAdminBoundaries && geoJsonData && (
           <GeoJSON
-            key={showColors ? 'colored' : 'default'}
+            key={showAdminColors ? 'colored' : 'default'}
             data={geoJsonData}
             style={getAdminStyle}
           />
