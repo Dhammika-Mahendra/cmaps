@@ -62,6 +62,7 @@ export default function Map() {
     return map
   }, [colomboCityData])
 
+  //=========================================================================
   // Style function for admin boundaries
   const getAdminStyle = (feature) => {
     if (showAdminColors && feature.properties.ADM2_EN) {
@@ -80,7 +81,9 @@ export default function Map() {
     }
   }
 
+  //=========================================================================
   // Style function for Colombo City
+
   const getColomboStyle = (feature) => {
     if (showColomboColors && feature.properties.id) {
       return {
