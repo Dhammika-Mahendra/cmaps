@@ -3,7 +3,7 @@ import { useAppContext } from '../context/AppContext'
 
 const Drawer = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const { showAdminBoundaries, setShowAdminBoundaries } = useAppContext()
+  const { showAdminBoundaries, setShowAdminBoundaries, showColomboCity, setShowColomboCity } = useAppContext()
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen)
@@ -70,6 +70,8 @@ const Drawer = () => {
         Colombo city
         <input 
           type="checkbox"
+          checked={showColomboCity}
+          onChange={(e) => setShowColomboCity(e.target.checked)}
         />
         </div>
     </nav>

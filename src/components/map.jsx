@@ -4,8 +4,9 @@ import 'leaflet/dist/leaflet.css'
 import { useAppContext } from '../context/AppContext'
 
 export default function Map() {
-  const { showAdminBoundaries } = useAppContext()
+  const { showAdminBoundaries, showColomboCity } = useAppContext()
   const [geoJsonData, setGeoJsonData] = useState(null)
+  const [colomboCityData, setColomboCityData] = useState(null)
 
   useEffect(() => {
     // Only fetch when showAdminBoundaries is true and data hasn't been loaded yet
@@ -16,6 +17,16 @@ export default function Map() {
         .catch(error => console.error('Error loading GeoJSON:', error))
     }
   }, [showAdminBoundaries, geoJsonData])
+
+  useEffect(() => {
+    // Only fetch when showColomboCity is true and data hasn't been loaded yet
+    if (showColomboCity && !colomboCityData) {
+      fetch('/Col_post.json')
+        .then(response => response.json())
+        .then(data => setColomboCityData(data))
+        .catch(error => console.error('Error loading Colombo city GeoJSON:', error))
+    }
+  }, [showColomboCity, colomboCityData])
 
   return (
     <div className='h-full w-full relative z-0'>
@@ -37,6 +48,17 @@ export default function Map() {
               weight: 1,
               opacity: 0.9,
               fillOpacity: 0
+            }}
+          />
+        )}
+        {showColomboCity && colomboCityData && (
+          <GeoJSON
+            data={colomboCityData}
+            style={{
+              color: '#cc00ffff',
+              weight: 2,
+              opacity: 0.8,
+              fillOpacity: 0.1
             }}
           />
         )}
