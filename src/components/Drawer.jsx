@@ -118,7 +118,7 @@ const Drawer = () => {
         {/* Footer */}
         <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-gray-100 bg-gray-50">
           <p className="text-sm text-gray-500 text-center">
-            © 2026 CeyMapper
+            © 2026 Cmaps
           </p>
         </div>
       </div>
