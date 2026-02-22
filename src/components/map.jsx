@@ -8,12 +8,14 @@ export default function Map() {
   const [geoJsonData, setGeoJsonData] = useState(null)
 
   useEffect(() => {
-    // Fetch the GeoJSON data
-    fetch('/ADM3.json')
-      .then(response => response.json())
-      .then(data => setGeoJsonData(data))
-      .catch(error => console.error('Error loading GeoJSON:', error))
-  }, [])
+    // Only fetch when showAdminBoundaries is true and data hasn't been loaded yet
+    if (showAdminBoundaries && !geoJsonData) {
+      fetch('/ADM3.json')
+        .then(response => response.json())
+        .then(data => setGeoJsonData(data))
+        .catch(error => console.error('Error loading GeoJSON:', error))
+    }
+  }, [showAdminBoundaries, geoJsonData])
 
   return (
     <div className='h-full w-full relative z-0'>
