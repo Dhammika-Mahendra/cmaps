@@ -1,10 +1,16 @@
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import 'leaflet/dist/leaflet.css'
 import { useAppContext } from '../context/AppContext'
 
+// Generate random color
+const generateRandomColor = () => {
+  const hue = Math.floor(Math.random() * 360)
+  return `hsl(${hue}, 70%, 50%)`
+}
+
 export default function Map() {
-  const { showAdminBoundaries, showColomboCity } = useAppContext()
+  const { showAdminBoundaries, showColomboCity, showColors } = useAppContext()
   const [geoJsonData, setGeoJsonData] = useState(null)
   const [colomboCityData, setColomboCityData] = useState(null)
 
@@ -28,6 +34,38 @@ export default function Map() {
     }
   }, [showColomboCity, colomboCityData])
 
+  // Generate color mapping for ADM2_EN values
+  const colorMap = useMemo(() => {
+    if (!geoJsonData) return {}
+    
+    const map = {}
+    geoJsonData.features.forEach(feature => {
+      const adm2 = feature.properties.ADM2_EN
+      if (adm2 && !map[adm2]) {
+        map[adm2] = generateRandomColor()
+      }
+    })
+    return map
+  }, [geoJsonData])
+
+  // Style function for admin boundaries
+  const getAdminStyle = (feature) => {
+    if (showColors && feature.properties.ADM2_EN) {
+      return {
+        color: colorMap[feature.properties.ADM2_EN] || '#0400fdff',
+        weight: 1,
+        opacity: 0.9,
+        fillOpacity: 0.1
+      }
+    }
+    return {
+      color: '#0400fdff',
+      weight: 1,
+      opacity: 0.9,
+      fillOpacity: 0
+    }
+  }
+
   return (
     <div className='h-full w-full relative z-0'>
       <MapContainer
@@ -42,13 +80,9 @@ export default function Map() {
         />
         {showAdminBoundaries && geoJsonData && (
           <GeoJSON
+            key={showColors ? 'colored' : 'default'}
             data={geoJsonData}
-            style={{
-              color: '#0400fdff',
-              weight: 1,
-              opacity: 0.9,
-              fillOpacity: 0
-            }}
+            style={getAdminStyle}
           />
         )}
         {showColomboCity && colomboCityData && (

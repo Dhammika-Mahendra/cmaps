@@ -5,12 +5,15 @@ const AppContext = createContext();
 export const AppProvider = ({ children }) => {
   const [showAdminBoundaries, setShowAdminBoundaries] = useState(false);
   const [showColomboCity, setShowColomboCity] = useState(false);
+  const [showColors, setShowColors] = useState(false);
 
   const value = {
     showAdminBoundaries,
     setShowAdminBoundaries,
     showColomboCity,
     setShowColomboCity,
+    showColors,
+    setShowColors,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

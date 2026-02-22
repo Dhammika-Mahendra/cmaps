@@ -3,7 +3,7 @@ import { useAppContext } from '../context/AppContext'
 
 const Drawer = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const { showAdminBoundaries, setShowAdminBoundaries, showColomboCity, setShowColomboCity } = useAppContext()
+  const { showAdminBoundaries, setShowAdminBoundaries, showColomboCity, setShowColomboCity, showColors, setShowColors } = useAppContext()
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen)
@@ -57,7 +57,11 @@ const Drawer = () => {
                 </div>
                 <div className="text-sm text-gray-600 flex justify-between items-center">
                   <label className="font-sm">Colors</label>
-                  <input type="checkbox"/>
+                  <input 
+                    type="checkbox"
+                    checked={showColors}
+                    onChange={(e) => setShowColors(e.target.checked)}
+                  />
                 </div>
               </div>
             </div>
@@ -66,12 +70,21 @@ const Drawer = () => {
 
         {/* Colombo city -------------------------------------------------- */}
 
-        <div className="text-md text-gray-600 flex items-center justify-between w-full py-2 pl-2 pr-6">
-        Colombo city
+        <div className="text-md text-gray-600 flex items-center justify-between w-full py-2 pl-2 pr-6 border-b border-gray-200">
+        Colombo City
         <input 
           type="checkbox"
           checked={showColomboCity}
           onChange={(e) => setShowColomboCity(e.target.checked)}
+        />
+        </div>
+
+        {/* Bus routes -------------------------------------------------- */}
+
+        <div className="text-md text-gray-600 flex items-center justify-between w-full py-2 pl-2 pr-6">
+        Bus Routes
+        <input 
+          type="checkbox"
         />
         </div>
     </nav>
