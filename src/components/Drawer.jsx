@@ -31,6 +31,9 @@ const Drawer = () => {
     {/*=====================================================================*/}
 
     <nav className="p-2">
+
+        {/* Admin L3 -------------------------------------------------- */}
+
         <div className="space-y-1 border-b border-gray-200">
             <div className="text-md text-gray-600 flex items-center justify-between w-full py-2 pl-2 pr-6">
             Admin Boundaries
@@ -47,7 +50,7 @@ const Drawer = () => {
                 showAdminBoundaries ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
               }`}
             >
-              <div className="mt-2 pl-2 space-y-1 w-[60%] pb-2">
+              <div className="pl-2 space-y-1 w-[60%] pb-2">
                 <div className="text-sm text-gray-600 flex justify-between items-center">
                   <label className="font-sm">Labels</label>
                   <input type="checkbox"/>
@@ -58,6 +61,16 @@ const Drawer = () => {
                 </div>
               </div>
             </div>
+
+        </div>
+
+        {/* Colombo city -------------------------------------------------- */}
+
+        <div className="text-md text-gray-600 flex items-center justify-between w-full py-2 pl-2 pr-6">
+        Colombo city
+        <input 
+          type="checkbox"
+        />
         </div>
     </nav>
 

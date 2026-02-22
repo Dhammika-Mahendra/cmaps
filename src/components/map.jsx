@@ -9,7 +9,7 @@ export default function Map() {
 
   useEffect(() => {
     // Fetch the GeoJSON data
-    fetch('/ADM level-3.json')
+    fetch('/ADM3.json')
       .then(response => response.json())
       .then(data => setGeoJsonData(data))
       .catch(error => console.error('Error loading GeoJSON:', error))
@@ -31,10 +31,10 @@ export default function Map() {
           <GeoJSON
             data={geoJsonData}
             style={{
-              color: '#3388ff',
-              weight: 2,
-              opacity: 0.6,
-              fillOpacity: 0.2
+              color: '#0400fdff',
+              weight: 1,
+              opacity: 0.9,
+              fillOpacity: 0
             }}
           />
         )}
