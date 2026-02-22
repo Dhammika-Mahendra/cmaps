@@ -10,7 +10,7 @@ const generateRandomColor = () => {
 }
 
 export default function Map() {
-  const { showAdminBoundaries, showColomboCity, showAdminColors } = useAppContext()
+  const { showAdminBoundaries, showColomboCity, showAdminColors, showColomboColors } = useAppContext()
   const [geoJsonData, setGeoJsonData] = useState(null)
   const [colomboCityData, setColomboCityData] = useState(null)
 
@@ -48,21 +48,53 @@ export default function Map() {
     return map
   }, [geoJsonData])
 
+  // Generate color mapping for Colombo City id values
+  const colomboColorMap = useMemo(() => {
+    if (!colomboCityData) return {}
+    
+    const map = {}
+    colomboCityData.features.forEach(feature => {
+      const id = feature.properties.id
+      if (id && !map[id]) {
+        map[id] = generateRandomColor()
+      }
+    })
+    return map
+  }, [colomboCityData])
+
   // Style function for admin boundaries
   const getAdminStyle = (feature) => {
     if (showAdminColors && feature.properties.ADM2_EN) {
       return {
         color: colorMap[feature.properties.ADM2_EN] || '#0400fdff',
         weight: 1,
-        opacity: 0.9,
+        opacity: 0.8,
         fillOpacity: 0.1
       }
     }
     return {
       color: '#0400fdff',
       weight: 1,
-      opacity: 0.9,
+      opacity: 0.8,
       fillOpacity: 0
+    }
+  }
+
+  // Style function for Colombo City
+  const getColomboStyle = (feature) => {
+    if (showColomboColors && feature.properties.id) {
+      return {
+        color: colomboColorMap[feature.properties.id] || '#cc00ffff',
+        weight: 2,
+        opacity: 0.7,
+        fillOpacity: 0.1
+      }
+    }
+    return {
+      color: '#cc00ffff',
+      weight: 2,
+      opacity: 0.7,
+      fillOpacity: 0.1
     }
   }
 
@@ -87,13 +119,9 @@ export default function Map() {
         )}
         {showColomboCity && colomboCityData && (
           <GeoJSON
+            key={showColomboColors ? 'colombo-colored' : 'colombo-default'}
             data={colomboCityData}
-            style={{
-              color: '#cc00ffff',
-              weight: 2,
-              opacity: 0.8,
-              fillOpacity: 0.1
-            }}
+            style={getColomboStyle}
           />
         )}
       </MapContainer>

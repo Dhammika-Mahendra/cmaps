@@ -3,7 +3,7 @@ import { useAppContext } from '../context/AppContext'
 
 const Drawer = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const { showAdminBoundaries, setShowAdminBoundaries, showColomboCity, setShowColomboCity, showAdminColors, setShowAdminColors } = useAppContext()
+  const { showAdminBoundaries, setShowAdminBoundaries, showColomboCity, setShowColomboCity, showAdminColors, setShowAdminColors, showColomboColors, setShowColomboColors } = useAppContext()
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen)
@@ -95,6 +95,8 @@ const Drawer = () => {
                   <label className="font-sm">Colors</label>
                   <input 
                     type="checkbox"
+                    checked={showColomboColors}
+                    onChange={(e) => setShowColomboColors(e.target.checked)}
                   />
                 </div>
               </div>
