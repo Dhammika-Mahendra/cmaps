@@ -10,7 +10,7 @@ const generateRandomColor = () => {
 }
 
 export default function Map() {
-  const { showAdminBoundaries, showColomboCity, showAdminColors, showColomboColors, showLGBoundaries } = useAppContext()
+  const { showAdminBoundaries, showColomboCity, showAdminColors, showColomboColors, showLGBoundaries, showAdminLabels } = useAppContext()
   const [geoJsonData, setGeoJsonData] = useState(null)
   const [colomboCityData, setColomboCityData] = useState(null)
   const [lgBoundaryData, setLgBoundaryData] = useState(null)
@@ -83,6 +83,18 @@ export default function Map() {
     }
   }
 
+  // onEachFeature handler for Admin boundaries labels
+  const onEachAdminFeature = (feature, layer) => {
+    if (showAdminLabels && feature.properties.ADM3_EN) {
+      const center = layer.getBounds().getCenter()
+      layer.bindTooltip(feature.properties.ADM3_EN, {
+        permanent: true,
+        direction: 'center',
+        className: 'admin-label'
+      }).openTooltip(center)
+    }
+  }
+
 
   // Style function for Colombo City----------------------------------------------
     const colomboColorMap = useMemo(() => {
@@ -140,9 +152,10 @@ export default function Map() {
         />
         {showAdminBoundaries && geoJsonData && (
           <GeoJSON
-            key={showAdminColors ? 'colored' : 'default'}
+            key={`admin-${showAdminColors}-${showAdminLabels}`}
             data={geoJsonData}
             style={getAdminStyle}
+            onEachFeature={onEachAdminFeature}
           />
         )}
         {showColomboCity && colomboCityData && (
