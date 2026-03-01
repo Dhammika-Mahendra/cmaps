@@ -1,5 +1,5 @@
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet'
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState, useMemo, use } from 'react'
 import 'leaflet/dist/leaflet.css'
 import { useAppContext } from '../context/AppContext'
 
@@ -10,12 +10,17 @@ const generateRandomColor = () => {
 }
 
 export default function Map() {
-  const { showAdminBoundaries, showColomboCity, showAdminColors, showColomboColors } = useAppContext()
+  const { showAdminBoundaries, showColomboCity, showAdminColors, showColomboColors, showLGBoundaries } = useAppContext()
   const [geoJsonData, setGeoJsonData] = useState(null)
   const [colomboCityData, setColomboCityData] = useState(null)
+  const [lgBoundaryData, setLgBoundaryData] = useState(null)
+
+
+  //=========================================================================
+  //               dynamic json layer loading
+  //=========================================================================
 
   useEffect(() => {
-    // Only fetch when showAdminBoundaries is true and data hasn't been loaded yet
     if (showAdminBoundaries && !geoJsonData) {
       fetch('/ADM3.json')
         .then(response => response.json())
@@ -25,7 +30,6 @@ export default function Map() {
   }, [showAdminBoundaries, geoJsonData])
 
   useEffect(() => {
-    // Only fetch when showColomboCity is true and data hasn't been loaded yet
     if (showColomboCity && !colomboCityData) {
       fetch('/Col_post.json')
         .then(response => response.json())
@@ -34,8 +38,22 @@ export default function Map() {
     }
   }, [showColomboCity, colomboCityData])
 
-  // Generate color mapping for ADM2_EN values
-  const colorMap = useMemo(() => {
+  useEffect(() => {
+    if (showLGBoundaries && !lgBoundaryData) {
+      fetch('/Lcl_GV.json')
+        .then(response => response.json())
+        .then(data => setLgBoundaryData(data))
+        .catch(error => console.error('Error loading Local Government GeoJSON:', error))
+    }
+  }, [showLGBoundaries, lgBoundaryData])
+
+
+  //=========================================================================
+  //               layer styling and color mapping
+  //=========================================================================
+
+  // Style function for admin boundaries---------------------------------------------
+    const colorMap = useMemo(() => {
     if (!geoJsonData) return {}
     
     const map = {}
@@ -48,8 +66,26 @@ export default function Map() {
     return map
   }, [geoJsonData])
 
-  // Generate color mapping for Colombo City id values
-  const colomboColorMap = useMemo(() => {
+  const getAdminStyle = (feature) => {
+    if (showAdminColors && feature.properties.ADM2_EN) {
+      return {
+        color: colorMap[feature.properties.ADM2_EN],
+        weight: 0.7,
+        opacity: 0.8,
+        fillOpacity: 0.1
+      }
+    }
+    return {
+      color: '#0400fdff',
+      weight: 0.7,
+      opacity: 0.8,
+      fillOpacity: 0
+    }
+  }
+
+
+  // Style function for Colombo City----------------------------------------------
+    const colomboColorMap = useMemo(() => {
     if (!colomboCityData) return {}
     
     const map = {}
@@ -62,40 +98,29 @@ export default function Map() {
     return map
   }, [colomboCityData])
 
-  //=========================================================================
-  // Style function for admin boundaries
-  const getAdminStyle = (feature) => {
-    if (showAdminColors && feature.properties.ADM2_EN) {
-      return {
-        color: colorMap[feature.properties.ADM2_EN] || '#0400fdff',
-        weight: 1,
-        opacity: 0.8,
-        fillOpacity: 0.1
-      }
-    }
-    return {
-      color: '#0400fdff',
-      weight: 1,
-      opacity: 0.8,
-      fillOpacity: 0
-    }
-  }
-
-  //=========================================================================
-  // Style function for Colombo City
-
   const getColomboStyle = (feature) => {
     if (showColomboColors && feature.properties.id) {
       return {
-        color: colomboColorMap[feature.properties.id] || '#cc00ffff',
-        weight: 2,
+        color: colomboColorMap[feature.properties.id] ,
+        weight: 0.5,
         opacity: 0.7,
-        fillOpacity: 0.1
+        fillOpacity: 0.2
       }
     }
     return {
       color: '#cc00ffff',
-      weight: 2,
+      weight: 1,
+      opacity: 0.7,
+      fillOpacity: 0
+    }
+  }
+
+  // Style for Local Government boundaries 
+
+  const getLGStyle = (feature) => {
+    return {
+      color: '#00ccffff',
+      weight: 0.7,
       opacity: 0.7,
       fillOpacity: 0.1
     }
@@ -125,6 +150,12 @@ export default function Map() {
             key={showColomboColors ? 'colombo-colored' : 'colombo-default'}
             data={colomboCityData}
             style={getColomboStyle}
+          />
+        )}
+        {showLGBoundaries && lgBoundaryData && (
+          <GeoJSON
+            data={lgBoundaryData}
+            style={getLGStyle}
           />
         )}
       </MapContainer>

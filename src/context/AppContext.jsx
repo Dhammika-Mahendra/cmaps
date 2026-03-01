@@ -7,10 +7,13 @@ export const AppProvider = ({ children }) => {
   const [showColomboCity, setShowColomboCity] = useState(false);
   const [showAdminColors, setShowAdminColors] = useState(false);
   const [showColomboColors, setShowColomboColors] = useState(false);
+  const [showLGBoundaries, setShowLGBoundaries] = useState(false);
 
   const value = {
     showAdminBoundaries,
     setShowAdminBoundaries,
+    showLGBoundaries,
+    setShowLGBoundaries,
     showColomboCity,
     setShowColomboCity,
     showAdminColors,
