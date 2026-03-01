@@ -1,0 +1,21 @@
+.optionBtn{
+    background-color: rgb(248, 245, 245);
+    color: #8491a5;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 8px
+}
+
+.optionBtnActive{
+ background-color: rgb(168, 170, 170);
+    color: #e2e5eb;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 8px
+}

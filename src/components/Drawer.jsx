@@ -35,7 +35,7 @@ const Drawer = () => {
         {/* Admin L3 -------------------------------------------------- */}
 
         <div className="space-y-1 border-b border-gray-200">
-            <div className="text-md text-gray-600 flex items-center justify-between w-full py-2 pl-2 pr-6">
+            <div className="text-md text-gray-600 flex items-center justify-between w-full py-1 pl-2 pr-6">
             Admin Boundaries
             <input 
               type="checkbox"
@@ -50,18 +50,14 @@ const Drawer = () => {
                 showAdminBoundaries ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
               }`}
             >
-              <div className="pl-2 space-y-1 w-[60%] pb-2">
-                <div className="text-sm text-gray-600 flex justify-between items-center">
-                  <label className="font-sm">Labels</label>
-                  <input type="checkbox"/>
+              <div className="pl-2 w-[60%] pb-3 flex items-center justify-start">
+                <div className={`${showAdminColors ? 'optionBtnActive' : 'optionBtn'}`}
+                  onClick={() => setShowAdminColors(!showAdminColors)}
+                >
+                  Colors
                 </div>
-                <div className="text-sm text-gray-600 flex justify-between items-center">
-                  <label className="font-sm">Colors</label>
-                  <input 
-                    type="checkbox"
-                    checked={showAdminColors}
-                    onChange={(e) => setShowAdminColors(e.target.checked)}
-                  />
+                <div className="optionBtn">
+                  Lables
                 </div>
               </div>
             </div>
@@ -71,7 +67,7 @@ const Drawer = () => {
         {/* Local Gov ----------------------------------------------- */}
 
         <div className="space-y-1 border-b border-gray-200">
-            <div className="text-md text-gray-600 flex items-center justify-between w-full py-2 pl-2 pr-6">
+            <div className="text-md text-gray-600 flex items-center justify-between w-full py-1 pl-2 pr-6">
             Local Government
             <input 
               type="checkbox"
@@ -81,21 +77,18 @@ const Drawer = () => {
             </div>
             
             {/* options */}
+            {/* options */}
             <div 
               className={`overflow-hidden transition-all duration-200 ease-in-out ${
                 showLGBoundaries ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
               }`}
             >
-              <div className="pl-2 space-y-1 w-[60%] pb-2">
-                <div className="text-sm text-gray-600 flex justify-between items-center">
-                  <label className="font-sm">Labels</label>
-                  <input type="checkbox"/>
+              <div className="pl-2 w-[60%] pb-3 flex items-center justify-start">
+                <div className="optionBtn">
+                  Colors
                 </div>
-                <div className="text-sm text-gray-600 flex justify-between items-center">
-                  <label className="font-sm">Colors</label>
-                  <input 
-                    type="checkbox"
-                  />
+                <div className="optionBtn">
+                  Lables
                 </div>
               </div>
             </div>
@@ -105,7 +98,7 @@ const Drawer = () => {
         {/* Colombo city -------------------------------------------------- */}
 
         <div className="space-y-1 border-b border-gray-200">
-          <div className="text-md text-gray-600 flex items-center justify-between w-full py-2 pl-2 pr-6">
+          <div className="text-md text-gray-600 flex items-center justify-between w-full py-1 pl-2 pr-6">
           Colombo City
           <input 
             type="checkbox"
@@ -115,23 +108,20 @@ const Drawer = () => {
           </div>
 
           {/* options */}
+            {/* options */}
             <div 
               className={`overflow-hidden transition-all duration-200 ease-in-out ${
                 showColomboCity ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
               }`}
             >
-              <div className="pl-2 space-y-1 w-[60%] pb-2">
-                <div className="text-sm text-gray-600 flex justify-between items-center">
-                  <label className="font-sm">Labels</label>
-                  <input type="checkbox"/>
+              <div className="pl-2 w-[60%] pb-3 flex items-center justify-start">
+                <div className={`${showColomboColors ? 'optionBtnActive' : 'optionBtn'}`}
+                  onClick={() => setShowColomboColors(!showColomboColors)}
+                >
+                  Colors
                 </div>
-                <div className="text-sm text-gray-600 flex justify-between items-center">
-                  <label className="font-sm">Colors</label>
-                  <input 
-                    type="checkbox"
-                    checked={showColomboColors}
-                    onChange={(e) => setShowColomboColors(e.target.checked)}
-                  />
+                <div className="optionBtn">
+                  Lables
                 </div>
               </div>
             </div>
@@ -140,7 +130,7 @@ const Drawer = () => {
 
         {/* Bus routes -------------------------------------------------- */}
         <div className="space-y-1 border-b border-gray-200">
-          <div className="text-md text-gray-600 flex items-center justify-between w-full py-2 pl-2 pr-6">
+          <div className="text-md text-gray-600 flex items-center justify-between w-full py-1 pl-2 pr-6">
           Bus Routes
           <input 
             type="checkbox"
