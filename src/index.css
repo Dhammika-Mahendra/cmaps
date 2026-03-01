@@ -50,10 +50,29 @@
   font-size: 15px !important;
   font-weight: 500 !important;
   color: #1e3a8a !important;
-  white-space: nowrap !important;
+  white-space: normal !important;    /* Allow text wrapping */
+  max-width: 150px !important;       /* Set max width before wrap */
+  text-align: center !important;     /* Center multi-line text */
+  pointer-events: none !important;
+}
+.admin-label::before {
+  border: none !important;
+}
+
+/* Colombo City label styles */
+.colombo-label {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #e73aed !important;
+  white-space: normal !important;    /* Allow text wrapping */
+  max-width: 100px !important;       /* Set max width before wrap */
+  text-align: center !important;     /* Center multi-line text */
   pointer-events: none !important;
 }
 
-.admin-label::before {
+.colombo-label::before {
   border: none !important;
 }

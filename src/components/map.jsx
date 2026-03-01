@@ -10,7 +10,7 @@ const generateRandomColor = () => {
 }
 
 export default function Map() {
-  const { showAdminBoundaries, showColomboCity, showAdminColors, showColomboColors, showLGBoundaries, showAdminLabels } = useAppContext()
+  const { showAdminBoundaries, showColomboCity, showAdminColors, showColomboColors, showLGBoundaries, showAdminLabels, showColomboLabels } = useAppContext()
   const [geoJsonData, setGeoJsonData] = useState(null)
   const [colomboCityData, setColomboCityData] = useState(null)
   const [lgBoundaryData, setLgBoundaryData] = useState(null)
@@ -127,6 +127,19 @@ export default function Map() {
     }
   }
 
+  // onEachFeature handler for Colombo City labels
+  const onEachColomboFeature = (feature, layer) => {
+    if (showColomboLabels && feature.properties.id && feature.properties.name) {
+      const center = layer.getBounds().getCenter()
+      const labelText = `${feature.properties.id} - ${feature.properties.name}`
+      layer.bindTooltip(labelText, {
+        permanent: true,
+        direction: 'center',
+        className: 'colombo-label'
+      }).openTooltip(center)
+    }
+  }
+
   // Style for Local Government boundaries 
 
   const getLGStyle = (feature) => {
@@ -160,9 +173,10 @@ export default function Map() {
         )}
         {showColomboCity && colomboCityData && (
           <GeoJSON
-            key={showColomboColors ? 'colombo-colored' : 'colombo-default'}
+            key={`colombo-${showColomboColors}-${showColomboLabels}`}
             data={colomboCityData}
             style={getColomboStyle}
+            onEachFeature={onEachColomboFeature}
           />
         )}
         {showLGBoundaries && lgBoundaryData && (
