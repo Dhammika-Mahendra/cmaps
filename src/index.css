@@ -14,30 +14,16 @@
 	}
 }
 
-/* Custom label styles for GeoJSON features */
-.custom-label {
+/* Colombo City label styles */
+.colombo-label {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
-  font-size: 16px !important;
-  font-weight: 300 !important;
-  color: #1e40af !important;
-  text-shadow: 
-    -1px -1px 0 #fff,
-    1px -1px 0 #fff,
-    -1px 1px 0 #fff,
-    1px 1px 0 #fff,
-    0 0 3px #fff !important;
-  white-space: nowrap !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #770a77 !important;
+  white-space: normal !important;    /* Allow text wrapping */
+  text-align: center !important;     /* Center multi-line text */
+  width: auto !important;           /* Adjust width to content */
   pointer-events: none !important;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.custom-label::before {
-  border: none !important;
-}
-
-/* Hide labels on smaller zoom levels to reduce clutter */
-.leaflet-zoom-anim .custom-label {
-  transition: opacity 0.15s;
 }

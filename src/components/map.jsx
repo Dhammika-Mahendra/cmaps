@@ -1,5 +1,6 @@
-import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet'
-import { useEffect, useState, useMemo, use } from 'react'
+import { MapContainer, TileLayer, GeoJSON, Marker, Tooltip } from 'react-leaflet'
+import { useEffect, useState, useMemo } from 'react'
+import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { useAppContext } from '../context/AppContext'
 
@@ -10,7 +11,7 @@ const generateRandomColor = () => {
 }
 
 export default function Map() {
-  const { showAdminBoundaries, showColomboCity, showAdminColors, showColomboColors, showLGBoundaries } = useAppContext()
+  const { showAdminBoundaries, showColomboCity, showAdminColors, showColomboColors, showLGBoundaries, showColomboLabels } = useAppContext()
   const [geoJsonData, setGeoJsonData] = useState(null)
   const [colomboCityData, setColomboCityData] = useState(null)
   const [lgBoundaryData, setLgBoundaryData] = useState(null)
@@ -158,6 +159,24 @@ export default function Map() {
             style={getLGStyle}
           />
         )}
+        {showColomboCity && showColomboLabels && colomboCityData && colomboCityData.features.map((feature, index) => {
+          const { coord_x, coord_y, name, id } = feature.properties
+          if (coord_x && coord_y && name) {
+            return (
+              <Marker
+                key={`label-${index}`}
+                position={[coord_y, coord_x]}
+                icon={L.divIcon({
+                  className: 'colombo-label',
+                  html: `<div class="colombo-label-text">${"("+id +")<br>"+ name}</div>`,
+                  iconSize: [0, 0],
+                  iconAnchor: [0, 0]
+                })}
+              />
+            )
+          }
+          return null
+        })}
       </MapContainer>
     </div>
   )

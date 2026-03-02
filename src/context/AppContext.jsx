@@ -8,6 +8,7 @@ export const AppProvider = ({ children }) => {
   const [showAdminColors, setShowAdminColors] = useState(false);
   const [showColomboColors, setShowColomboColors] = useState(false);
   const [showLGBoundaries, setShowLGBoundaries] = useState(false);
+  const [showColomboLabels, setShowColomboLabels] = useState(false);
 
   const value = {
     showAdminBoundaries,
@@ -20,6 +21,8 @@ export const AppProvider = ({ children }) => {
     setShowAdminColors,
     showColomboColors,
     setShowColomboColors,
+    showColomboLabels,
+    setShowColomboLabels
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

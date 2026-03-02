@@ -3,7 +3,7 @@ import { useAppContext } from '../context/AppContext'
 
 const Drawer = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const { showAdminBoundaries, setShowAdminBoundaries, showColomboCity, setShowColomboCity, showAdminColors, setShowAdminColors, showColomboColors, setShowColomboColors, showLGBoundaries, setShowLGBoundaries } = useAppContext()
+  const { showAdminBoundaries, setShowAdminBoundaries, showColomboCity, setShowColomboCity, showAdminColors, setShowAdminColors, showColomboColors, setShowColomboColors, showLGBoundaries, setShowLGBoundaries, showColomboLabels, setShowColomboLabels } = useAppContext()
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen)
@@ -76,7 +76,7 @@ const Drawer = () => {
             />
             </div>
             
-            {/* options */}
+
             {/* options */}
             <div 
               className={`overflow-hidden transition-all duration-200 ease-in-out ${
@@ -107,8 +107,8 @@ const Drawer = () => {
           />
           </div>
 
+
           {/* options */}
-            {/* options */}
             <div 
               className={`overflow-hidden transition-all duration-200 ease-in-out ${
                 showColomboCity ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
@@ -120,8 +120,10 @@ const Drawer = () => {
                 >
                   Colors
                 </div>
-                <div className="optionBtn">
-                  Lables
+                <div className={`${showColomboLabels ? 'optionBtnActive' : 'optionBtn'}`}
+                  onClick={() => setShowColomboLabels(!showColomboLabels)}
+                >
+                  Labels
                 </div>
               </div>
             </div>
